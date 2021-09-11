@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+  - cron: "0 0 1 * *"
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      env: 
+        ddk: ${{secrets.DOCKER_DEPLOY_KEY}}
+      run: echo $ddk | docker login -u flohsg --password-stdin
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag nginx_proxy_https:$(date +%s) -t flohsg/nginx_proxy_https:latest
+    - name: docker push
+      run: docker push flohsg/nginx_proxy_https
+    - name: docker logout
+      run: docker logout
