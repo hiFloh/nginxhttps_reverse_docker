@@ -1,5 +1,4 @@
 FROM nginx
 
-COPY ./sites/ /etc/nginx/conf.d/
-#COPY ./conf/ /etc/nginx/conf.d/
-
+COPY ./start /start
+COPY ./setup.sh /docker-entrypoint.d/09-setup.sh
