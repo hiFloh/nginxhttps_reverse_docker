@@ -64,9 +64,12 @@ then
                 redirectdest=HOST${i}_REDIRECT{rdi}_DEST
                 if [[ -n "${!redirectdest}" ]]
                 then
+                    echo "preapare generating redirect $rdi"
                     echo "s|srcPath|${!redirect}|g" >/tmp/sed
                     echo "s|destURL|${!redirectdest}|g" >>/tmp/sed
+                    echo "generating redirect $rdi"
                     sed -f /tmp/sed /start/redirectTemplate.x >> /tmp/redirect
+                    echo "generating redirect $rdi done"
                 else
                     echo "ERROR ${!redirect} missing destination"
                     y=false
