@@ -70,6 +70,7 @@ then
                     y=false
                 fi
             else
+                echo "redirect $rdi not there"
                 y=false
             fi
         done
@@ -84,7 +85,7 @@ then
         sed -f /tmp/sed /start/${type}.conf > /etc/nginx/conf.d/${!host}.conf
     fi
 else
-    echo "break $i"
+    echo "host $i not there"
   x=false
 fi
 
