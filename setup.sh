@@ -52,6 +52,7 @@ then
         then
             port=80
         fi
+        echo "$i:${!host} ${!host_dest} ${type} ${port}"
         rdi=0
         y=true
         echo ""> /tmp/redirect
@@ -65,6 +66,7 @@ then
                 if [[ -n "${!redirectdest}" ]]
                 then
                     echo "preapare generating redirect $rdi"
+                    echo "$rdi:${!redirect} ${!redirectdest}"
                     echo "s|srcPath|${!redirect}|g" >/tmp/sed
                     echo "s|destURL|${!redirectdest}|g" >>/tmp/sed
                     echo "generating redirect $rdi"
@@ -82,7 +84,6 @@ then
             ((rdi++))
         done
         echo "preapare generating config"
-        echo "$i:${!host} ${!host_dest} ${type} ${port}"
         echo "s|hostname|${!host}|g" > /tmp/sed 
         echo "s|destination|${!host_dest}|g" >> /tmp/sed
         echo "s|destPort|${port}|g" >> /tmp/sed
