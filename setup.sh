@@ -60,8 +60,8 @@ then
             redirect=HOST${i}_REDIRECT$rdi
             if [[ -n "${!redirect}" ]]
             then
-                redirectdest=HOST${i}_REDIRECT{rdi}_DEST
                 echo "start generating ${!redirect}"
+                redirectdest=HOST${i}_REDIRECT{rdi}_DEST
                 if [[ -n "${!redirectdest}" ]]
                 then
                     echo "preapare generating redirect $rdi"
@@ -74,6 +74,7 @@ then
                     echo "ERROR ${!redirect} missing destination"
                     y=false
                 fi
+                echo "start generating ${!redirect}"
             else
                 echo "redirect $rdi not there"
                 y=false
