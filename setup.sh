@@ -39,9 +39,10 @@ port=${!host_port}
 type=${!host_type}
 if [[ -n "${!host}" ]]
 then
+    echo "start generating ${!host}"
     if ! [[ -n "${!host_dest}" ]] 
     then
-        echo "${!host} missing destination"
+        echo "ERROR ${!host} missing destination"
     else
         if ! [[ -n "${type}" ]] 
         then 
@@ -59,6 +60,7 @@ then
             redirect=HOST${i}_REDIRECT$rdi
             if [[ -n "${!redirect}" ]]
             then
+                echo "start generating ${!redirect}"
                 redirectdest=HOST${i}_REDIRECT{rdi}_DEST
                 if [[ -n "${!redirectdest}" ]]
                 then
@@ -66,7 +68,7 @@ then
                     echo "s|destURL|${!redirectdest}|g" >>/tmp/sed
                     sed -f /tmp/sed /start/redirectTemplate.x >> /tmp/redirect
                 else
-                    echo "${!redirect} missing destination"
+                    echo "ERROR ${!redirect} missing destination"
                     y=false
                 fi
             else
