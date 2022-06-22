@@ -73,6 +73,7 @@ then
                 echo "redirect $rdi not there"
                 y=false
             fi
+            ((rdi++))
         done
         echo "$i:${!host} ${!host_dest} ${type} ${port}"
         echo "s|hostname|${!host}|g" > /tmp/sed 
@@ -92,5 +93,5 @@ fi
 ((i++))
 
 done
-cat -n /etc/nginx/conf.d/gitlab.gapp-hsg.eu.conf
+#cat -n /etc/nginx/conf.d/gitlab.gapp-hsg.eu.conf
 ls -la /etc/nginx/conf.d/
