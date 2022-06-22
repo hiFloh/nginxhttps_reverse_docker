@@ -63,8 +63,8 @@ then
             then
                 echo "start generating ${!redirect}"
                 redirectdest=HOST${i}_REDIRECT{rdi}_DEST
-                if [[ -n "${!redirectdest}" ]]
-                then
+#                if [[ -n "${!redirectdest}" ]]
+#                then
                     echo "preapare generating redirect $rdi"
                     echo "$rdi:${!redirect} ${!redirectdest}"
                     echo "s|srcPath|${!redirect}|g" >/tmp/sed
@@ -72,10 +72,10 @@ then
                     echo "generating redirect $rdi"
                     sed -f /tmp/sed /start/redirectTemplate.x >> /tmp/redirect
                     echo "generating redirect $rdi done"
-                else
-                    echo "ERROR ${!redirect} missing destination"
-                    y=false
-                fi
+#                else
+#                    echo "ERROR ${!redirect} missing destination"
+#                    y=false
+#                fi
                 echo "start generating ${!redirect}"
             else
                 echo "redirect $rdi not there"
