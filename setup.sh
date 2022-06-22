@@ -7,11 +7,11 @@ if ! [[ -n "${SSLCERT_PATH}" ]]
 then 
     SSLCERT_PATH=/var/cert/live/$HOST0/
 fi
-if ! [[ -n "${SSLCERT_NAME}" ]] 
+if ! [[ -n "${SSLCERT_NAME}" ]]
 then 
     SSLCERT_NAME=fullchain.pem
 fi
-if ! [[ -n "${SSLCERT_KEY}" ]] 
+if ! [[ -n "${SSLCERT_KEY}" ]]
 then 
     SSLCERT_KEY=privkey.pem
 fi
@@ -61,6 +61,7 @@ then
             then
                 redirectdest=HOST${i}_REDIRECT{rdi}_DEST
                 if [[ -n "${!redirectdest}" ]]
+                then
                     echo "s|srcPath|${!redirect}|g" >/tmp/sed
                     echo "s|destURL|${!redirectdest}|g" >>/tmp/sed
                     sed -f /tmp/sed /start/redirectTemplate.x >> /tmp/redirect
