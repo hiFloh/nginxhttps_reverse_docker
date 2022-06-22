@@ -77,6 +77,7 @@ then
             fi
             ((rdi++))
         done
+        echo "preapare generating config"
         echo "$i:${!host} ${!host_dest} ${type} ${port}"
         echo "s|hostname|${!host}|g" > /tmp/sed 
         echo "s|destination|${!host_dest}|g" >> /tmp/sed
@@ -85,7 +86,9 @@ then
         echo "s|certName|${SSLCERT_NAME}|g" >> /tmp/sed
         echo "s|SSLCERT_KEY|${SSLCERT_KEY}|g" >> /tmp/sed
         echo "s|redirects|cat /tmp/redirect|e" >> /tmp/sed
+        echo "generating config"
         sed -f /tmp/sed /start/${type}.conf > /etc/nginx/conf.d/${!host}.conf
+        echo "generation done"
     fi
 else
     echo "host $i not there"
