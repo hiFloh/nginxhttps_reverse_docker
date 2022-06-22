@@ -51,6 +51,27 @@ then
         then
             port=80
         fi
+        rdi=0
+        y=true
+        echo ""> /tmp/redirect
+        while $y
+        do
+            redirect=HOST${i}_REDIRECT$rdi
+            if [[ -n "${!redirect}" ]]
+            then
+                redirectdest=HOST${i}_REDIRECT{rdi}_DEST
+                if [[ -n "${!redirectdest}" ]]
+                    echo "s|srcPath|${!redirect}|g" >/tmp/sed
+                    echo "s|destURL|${!redirectdest}|g" >>/tmp/sed
+                    sed -f /tmp/sed /start/redirectTemplate.x >> /tmp/redirect
+                else
+                    echo "${!redirect} missing destination"
+                    y=false
+                fi
+            else
+                y=false
+            fi
+        done
         echo "$i:${!host} ${!host_dest} ${type} ${port}"
         echo "s|hostname|${!host}|g" > /tmp/sed 
         echo "s|destination|${!host_dest}|g" >> /tmp/sed
@@ -58,6 +79,7 @@ then
         echo "s|certPath|${SSLCERT_PATH}|g" >> /tmp/sed
         echo "s|certName|${SSLCERT_NAME}|g" >> /tmp/sed
         echo "s|SSLCERT_KEY|${SSLCERT_KEY}|g" >> /tmp/sed
+        echo "s|redirects|cat /tmp/redirect|e" >> /tmp/sed
         sed -f /tmp/sed /start/${type}.conf > /etc/nginx/conf.d/${!host}.conf
     fi
 else
