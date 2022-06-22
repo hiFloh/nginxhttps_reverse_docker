@@ -60,8 +60,8 @@ then
             redirect=HOST${i}_REDIRECT$rdi
             if [[ -n "${!redirect}" ]]
             then
-                echo "start generating ${!redirect}"
                 redirectdest=HOST${i}_REDIRECT{rdi}_DEST
+                echo "start generating ${!redirect}"
                 if [[ -n "${!redirectdest}" ]]
                 then
                     echo "preapare generating redirect $rdi"
